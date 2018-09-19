@@ -89,7 +89,7 @@ class Player:
         "r": "run",
         "s": "see stats",
         "i": "see inventory",
-        "p": "to drink a potion"
+        "p": "drink a potion"
     }
 
 

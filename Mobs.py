@@ -193,9 +193,9 @@ class GiantPoisonousSlime(GenMob):
     HP = MAXHEALTH
 
 
-ENEMIES_0_10 = [Goblin, UndeadWolf, Zombie, Skeleton, GiantSlime, Orc, PoisonousSlime]
+ENEMIES_0_15 = [Goblin, UndeadWolf, Zombie, Skeleton, GiantSlime, Orc, PoisonousSlime]
 
-ENEMIES_10_20 = [PoisonousSlime, Orc, HobGoblin, HighOrc, EnchantedSkeleton, MagicSpirit, RedcapGoblin]
+ENEMIES_15_30 = [PoisonousSlime, Orc, HobGoblin, HighOrc, EnchantedSkeleton, MagicSpirit, RedcapGoblin]
 
-ENEMIES_20_30 = [RedcapGoblin, MagicSpirit, EvolvedHighOrc, Elemental, Elemental, HiglyEnchantedSkeleton, Golem, GiantPoisonousSlime]
+ENEMIES_30_45 = [RedcapGoblin, MagicSpirit, EvolvedHighOrc, Elemental, Elemental, HiglyEnchantedSkeleton, Golem, GiantPoisonousSlime]
 # 2x Elementals. I like them lol.

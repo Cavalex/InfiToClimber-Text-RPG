@@ -216,12 +216,12 @@ def monster_encounter():
     if player.location == 1:
         print("Right at the entrance of the tower you spot something!")
         print("As an adventurer, you decide to go check it!...")
-    if player.location < 10:
-        mob = random.choice(ENEMIES_0_10)
-    if 10 <= player.location < 20:
-        mob = random.choice(ENEMIES_10_20)
-    if player.location >= 20:
-        mob = random.choice(ENEMIES_20_30)
+    if player.location <= 15:
+        mob = random.choice(ENEMIES_0_15)
+    if 15 < player.location <= 3:
+        mob = random.choice(ENEMIES_15_30)
+    if 30 < player.location:
+        mob = random.choice(ENEMIES_30_45)
     mob.HP = mob.MAXHEALTH
     print("You found a monster! It's {}!".format(mob.type))
     print("What do you want to do? ")
@@ -305,6 +305,9 @@ def monster_encounter():
                 player.kill_count += 1
                 input("\n")
             else:
+                global damage_received
+                global player_dodged
+
                 if mob_dodged:
                     print("The {} still has {} HP.".format(mob.name, mob.HP))
                 if not mob_dodged:
@@ -365,6 +368,7 @@ def monster_encounter():
         quitting()
         exit()
 
+
 def get_events():
 
     event_getter = random.randint(1, 10)
@@ -389,7 +393,10 @@ def get_weapon():
     if weapon_prob == 1:
         print("\nYour inventory:")
         player.see_inventory()
-        new_weapon = random.choice(WEAPONS)
+        if player.location <= 15:
+            new_weapon = random.choice(WEAPONS_0_15)
+        if 15 < player.location:
+            new_weapon = random.choice(WEAPONS_15_30)
         print("\nWhile climbing to the next floor you found a weapon on the ground.")
         print("The item is: {} and can be equipped in exchange for your current weapon.".format(new_weapon))
         equip_weapon(new_weapon)
@@ -426,6 +433,7 @@ def drink_potion():
 
 ### Funtions Needed for some events:
 
+
 def quitting_event():
     player.set_score()
     player.score -= score_lost_to_death
@@ -434,6 +442,7 @@ def quitting_event():
     print("Your score is {}".format(player.score))
     print("You killed {} monsters.".format(player.kill_count))
     print_quitting()
+
 
 def trap_chest_encounter_event():
     global player_input
@@ -561,6 +570,9 @@ def trap_chest_encounter_event():
                 player.kill_count += 1
                 input("\n")
             else:
+                global damage_received
+                global player_dodged
+
                 if mob_dodged:
                     print("The {} still has {} HP.".format(mob.name, mob.HP))
                 if not mob_dodged:
@@ -616,6 +628,8 @@ def trap_chest_encounter_event():
                     exit()
                 else:
                     continue
+
+
 
 
 ### Events:
@@ -957,6 +971,9 @@ def event_dead_armor():
 
 EVENTS = [event_shop, event_get_hp, event_fountain, event_chest, event_skeleton_weapon,
           event_random_merchant, event_wall_arrow, event_angel_blessing, event_above_arrow, event_dead_armor]
+
+
+############################
 
 
 # Game Loop

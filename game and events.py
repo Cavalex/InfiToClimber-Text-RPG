@@ -286,6 +286,7 @@ def monster_encounter():
 
         def attack():
             global charged_strike
+            global damage_received
             mob_dodged = False
             global_luck()
             if global_luck() == 1:
@@ -305,7 +306,6 @@ def monster_encounter():
                 player.kill_count += 1
                 input("\n")
             else:
-                global damage_received
                 global player_dodged
 
                 if mob_dodged:
@@ -318,7 +318,6 @@ def monster_encounter():
                     player_dodged = True
                     print("You dodged the {} Attack!".format(mob.name))
                 if not player_dodged:
-                    #global damage_received
                     damage_received = mob.ATTACK - player_defense_points()
                     if damage_received < 0:
                         damage_received = 0
@@ -579,7 +578,7 @@ def trap_chest_encounter_event():
                     print("The {} now has {} HP.".format(mob.name, mob.HP))
                 player_dodged = False
                 global_luck()
-                if global_luck() == 1:
+                if global_luck() >= 1:
                     player_dodged = True
                     print("You dodged the {} Attack!".format(mob.name))
                 if not player_dodged:

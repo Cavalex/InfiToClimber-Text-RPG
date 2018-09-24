@@ -318,7 +318,6 @@ def monster_encounter():
                     player_dodged = True
                     print("You dodged the {} Attack!".format(mob.name))
                 if not player_dodged:
-                    global damage_received
                     damage_received = mob.ATTACK - player_defense_points()
                     if damage_received < 0:
                         damage_received = 0

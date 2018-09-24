@@ -318,6 +318,7 @@ def monster_encounter():
                     player_dodged = True
                     print("You dodged the {} Attack!".format(mob.name))
                 if not player_dodged:
+                    #global damage_received
                     damage_received = mob.ATTACK - player_defense_points()
                     if damage_received < 0:
                         damage_received = 0
@@ -612,7 +613,7 @@ def trap_chest_encounter_event():
             if player.HP <= 0:
                 player.set_score()
                 player.score -= score_lost_to_death
-                print("Game Over! You died!")
+                print("\nGame Over! You died!")
                 print("Your score is {}".format(player.score))
                 print("You killed {} monster(s).".format(player.kill_count))
                 print_quitting()
@@ -1004,8 +1005,7 @@ def main_loop():
             exit()
 
         print("\nYou decided to continue your journey inside the dungeon...")
-        #
-        trap_chest_encounter_event()
+        get_events()
         get_armor()
         get_weapon()
 

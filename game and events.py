@@ -213,6 +213,7 @@ def main():
 
 def monster_encounter():
     global player_input
+    global mob
     if player.location == 1:
         print("Right at the entrance of the tower you spot something!")
         print("As an adventurer, you decide to go check it!...")
@@ -286,7 +287,7 @@ def monster_encounter():
 
         def attack():
             global charged_strike
-            global damage_received
+            #global damage_received
             mob_dodged = False
             global_luck()
             if global_luck() == 1:
@@ -318,16 +319,17 @@ def monster_encounter():
                     player_dodged = True
                     print("You dodged the {} Attack!".format(mob.name))
                 if not player_dodged:
+                    global damage_received
                     damage_received = mob.ATTACK - player_defense_points()
                     if damage_received < 0:
                         damage_received = 0
                     player.HP -= damage_received
-                if damage_received == 0 and not player_dodged:
-                    print("You were able to block the monster's attack.")
-                    print("You still have {} HP.".format(player.HP))
-                if damage_received > 0 and not player_dodged:
-                    print("The {} inflicted you {} damage.".format(mob.name, damage_received))
-                print("You have {} HP.".format(player.HP))
+                    if damage_received == 0 and not player_dodged:
+                        print("You were able to block the monster's attack.")
+                        print("You still have {} HP.".format(player.HP))
+                    if damage_received > 0 and not player_dodged:
+                        print("The {} inflicted you {} damage.".format(mob.name, damage_received))
+                    print("You have {} HP.".format(player.HP))
         while True:
             global charged_strike
             charged_strike = False
@@ -919,7 +921,6 @@ def event_dead_armor():
         print("body in the ground with a weird armor on hit.")
         m = input("Do you want to check it?\n[y/n]-->")
         if m.lower() in yes_list:
-            dead_armor_tick += 1
             found_armor = True
             print("You found a very good armor in a good condition due to the fact")
             print("that it was enchanted. It's a {}".format(armor_chest_dead_man_breastplate))
@@ -927,7 +928,6 @@ def event_dead_armor():
             player.see_inventory()
             equip_armor(armor_chest_dead_man_breastplate)
         else:
-            dead_armor_tick += 1
             print("You left him alone and resumed your journey.")
     if dead_armor_tick == 1 and not found_armor:
         print("\nAs you were climbing the stairs to the next level you saw the same human")
@@ -935,7 +935,6 @@ def event_dead_armor():
         print("almost like if he was teleported to this floor.")
         m = input("Do you want to check it?\n[y/n]-->")
         if m.lower() in yes_list:
-            dead_armor_tick += 1
             found_armor = True
             print("You found a very good armor in a good condition due to the fact")
             print("that it was enchanted. It's a {}".format(armor_chest_dead_man_breastplate))
@@ -943,7 +942,6 @@ def event_dead_armor():
             player.see_inventory()
             equip_armor(armor_chest_dead_man_breastplate)
         else:
-            dead_armor_tick += 1
             print("You left him alone and resumed your journey.")
     if dead_armor_tick > 1 and not found_armor:
         print("\nAs you were climbing the stairs to the next level you saw again the same human")
@@ -951,7 +949,6 @@ def event_dead_armor():
         print("but this time it looked like it had a evil aura around it.")
         m = input("Do you want to check it?\n[y/n]-->")
         if m.lower() in yes_list:
-            dead_armor_tick += 1
             found_armor = True
             print("Apparently it was't nothing bad, and ")
             print("you found a very good armor in a good condition due to the fact")
@@ -960,8 +957,10 @@ def event_dead_armor():
             player.see_inventory()
             equip_armor(armor_chest_dead_man_breastplate)
         else:
-            dead_armor_tick += 1
             print("You left him alone and resumed your journey.")
+
+    dead_armor_tick += 1
+
     if found_armor:
         print("\nAs you were climbing the stairs to the next level you saw the same human")
         print("body in the ground almost like if he was teleported to this floor.")

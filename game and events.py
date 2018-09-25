@@ -435,32 +435,43 @@ def drink_potion():
 ### Funtions Needed for some events:
 
 
-def quitting_event():
-    player.set_score()
-    player.score -= score_lost_to_death
-    player.score -= 1 # From the greed.
-    print("\nGame Over! You died of greed!")
-    print("Your score is {}".format(player.score))
-    print("You killed {} monsters.".format(player.kill_count))
-    print_quitting()
+def quitting_event(a = None):
+    if a == "rr":
+        player.set_score()
+        player.score -= score_lost_to_death
+        player.score -= 2
+        print()
+        print("You decided to run from the monster and as you did that")
+        print("He attacked you from the back making you unconscious")
+        print("You lost 2 additional score points from dying of greed")
+        print("Your score is {}".format(player.score))
+        print("You killed {} monster(s).".format(player.kill_count))
+        print_quitting()
+        exit()
+    else:
+        player.set_score()
+        player.score -= score_lost_to_death
+        player.score -= 2
+        print()
+        print("Game Over! You died of greed! As such you will loose 2 additional score points.")
+        print("Your score is {}".format(player.score))
+        print("You killed {} monster(s).".format(player.kill_count))
+        print_quitting()
+        exit()
 
 
 def trap_chest_encounter_event():
     global player_input
-
+    global mob
     mob = TrapChest()
     mob.HP = mob.MAXHEALTH
-    print("The chest was a monster! It's {}!".format(mob.type))
+    print("The chest was a trap! It's {}!".format(mob.type))
     print("What do you want to do? ")
     commands()
     player_input = input("--> ")
 
-    tried_to_run = False
-
     def wrong_command():
         global player_input
-        global tried_to_run
-
         while player_input not in player.COMMANDS:
             print("Invalid Input!")
             commands()
@@ -478,32 +489,10 @@ def trap_chest_encounter_event():
                 print("\nWhat do you want to do now?")
                 commands()
                 player_input = input("--> ")
-            while player_input == "r":
-                if not tried_to_run:
-                    print()
-                    print("As you were trying to run the door suddenly closed")
-                    print("And the chest jumped at you from behind and hit you! It won't let you run!")
-                    print("You lost 3 HP.")
-                    time.sleep(0.1)
-                    player.HP -= 3
-                    print("\nWhat do you want to do now?")
-                    commands()
-                    player_input = input("--> ")
-                    tried_to_run = True
-                else:
-                    print()
-                    print("You can't run!")
-                    print("\nWhat do you want to do now?")
-                    commands()
-                    player_input = input("--> ")
-    if player_input == "r":
-        print()
-        print("As you were trying to run the door suddenly closed and the")
-        print("chest critically injured you from behind, knocking you unconscious.")
-        print("1 additional point will be subtracted from your score for dying of greed.")
-        quitting_event()
-        exit()
-    while player_input != "f" and player_input != "r":
+            if player_input == "r":
+                quitting_event("rr")
+                exit()
+    while player_input != "f":
         while player_input == "s":
             print("\nThese are your stats:")
             player.status()
@@ -524,27 +513,12 @@ def trap_chest_encounter_event():
             commands()
             player_input = input("--> ")
         wrong_command()
-        while player_input == "r":
-            if not tried_to_run:
-                print()
-                print("As you were trying to run the door suddenly closed")
-                print("And the chest jumped at you from behind and hit you! It won't let you run!")
-                print("You lost 3 HP.")
-                player.HP -= 3
-                print("\nWhat do you want to do now?")
-                commands()
-                player_input = input("--> ")
-                tried_to_run = True
-            else:
-                print()
-                print("You can't run!")
-                print("\nWhat do you want to do now?")
-                commands()
-                player_input = input("--> ")
-        wrong_command()
+        if player_input == "r":
+            quitting_event("rr")
+            player.score -= score_lost_to_death - 2
+            exit()
     if player_input == "f":
-        print("\nYou decided to attack the monster:")
-        print("Enemy's Type: {}".format(mob.name))
+        print("\nYou decided to attack the Trap Chest:")
         print("Enemy's HP: {}/{}".format(mob.HP, mob.MAXHEALTH))
         print("Enemy's Attack: {}".format(mob.ATTACK))
         print("Enemy's Defense: {}".format(mob.DEFENSE))
@@ -552,6 +526,7 @@ def trap_chest_encounter_event():
 
         def attack():
             global charged_strike
+            #global damage_received
             mob_dodged = False
             global_luck()
             if global_luck() == 1:
@@ -571,7 +546,6 @@ def trap_chest_encounter_event():
                 player.kill_count += 1
                 input("\n")
             else:
-                global damage_received
                 global player_dodged
 
                 if mob_dodged:
@@ -580,7 +554,7 @@ def trap_chest_encounter_event():
                     print("The {} now has {} HP.".format(mob.name, mob.HP))
                 player_dodged = False
                 global_luck()
-                if global_luck() >= 1:
+                if global_luck() == 1:
                     player_dodged = True
                     print("You dodged the {} Attack!".format(mob.name))
                 if not player_dodged:
@@ -589,12 +563,12 @@ def trap_chest_encounter_event():
                     if damage_received < 0:
                         damage_received = 0
                     player.HP -= damage_received
-                if damage_received == 0 and not player_dodged:
-                    print("You were able to block the monster's attack.")
-                    print("You still have {} HP.".format(player.HP))
-                if damage_received > 0 and not player_dodged:
-                    print("The {} inflicted you {} damage.".format(mob.name, damage_received))
-                print("You have {} HP.".format(player.HP))
+                    if damage_received == 0 and not player_dodged:
+                        print("You were able to block the monster's attack.")
+                        print("You still have {} HP.".format(player.HP))
+                    if damage_received > 0 and not player_dodged:
+                        print("The {} inflicted you {} damage.".format(mob.name, damage_received))
+                    print("You have {} HP.".format(player.HP))
         while True:
             global charged_strike
             charged_strike = False
@@ -612,23 +586,16 @@ def trap_chest_encounter_event():
             if mob.HP <= 0:
                 break
             if player.HP <= 0:
-                player.set_score()
-                player.score -= score_lost_to_death
-                print("\nGame Over! You died!")
-                print("Your score is {}".format(player.score))
-                print("You killed {} monster(s).".format(player.kill_count))
-                print_quitting()
-                exit()
+                quitting_event()
             if attack_tick % 2 == 0:
                 time.sleep(0.5)
-                print("\nDo you wish to run and loose the game now without loosing 2 score points?")
+                print("\nYou can't run!")
                 print("Press anything to continue")
-                run = input("Press \"r\" to run\n-->")
-                if run.lower() == "r":
-                    quitting()
-                    exit()
-                else:
-                    continue
+                continue
+    if player_input == "r":
+        print()
+        quitting_event()
+        exit()
 
 
 
@@ -794,12 +761,16 @@ def event_chest():
     m = input("Do you want to check it?")
     if m.lower() in yes_list:
         if rrr == 1:
+            print()
             print("You found a room full of treasure with a huge chest in the middle.")
             print("You decide to check it...")
+            time.sleep(2)
             trap_chest_encounter_event()
         if rrr == 2:
+            print()
             print("You found a room full of treasure with a huge chest in the middle.")
             print("You decide to check it...")
+            time.sleep(2)
             print("You received 100 gold.")
             player.gold += 100
     else:

@@ -203,6 +203,7 @@ weapon_special_fire_flail = {
     rarity: 4
 }
 
+
 WEAPONS_15_30 = [weapon_sword_iron, weapon_sword_bronze_enchanted, weapon_axe_iron, weapon_sword_rusty_iron,
     weapon_sword_steel_dwarven, weapon_spear_iron, weapon_special_retractable_iron_blade, weapon_mace_iron,
     weapon_cleaver_iron, weapon_twinblade_iron, weapon_special_fire_flail, weapon_sword_enchanted_bronze
@@ -253,6 +254,13 @@ weapon_sword_strongly_enchanted_iron = {
     add_attack: 2.5,
     add_defense: 0,
     rarity: 3
+}
+
+weapon_special_indented_ruby_axe = {
+    "Name:": "Indented Ruby Axe",
+    add_attack: 3.25,
+    add_defense: 0,
+    rarity: 4
 }
 
 ############################################################## Armor:

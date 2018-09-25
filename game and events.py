@@ -111,7 +111,7 @@ def new_potion_to_inv(potion):
 
 def equip_weapon(new_weapon_code):
     eq_val = input(
-        "Do you want to equip this weapon? ->( {} )<-\nNote that your current weapon ( {} ) will be discarded.\n-->".format(
+        "Do you want to equip this weapon? ->( {} )<-\nNote that your current weapon ( {} ) will be discarded.\n[y/n]-->".format(
             new_weapon_code["Name:"], player.equipped_weapon))
     if eq_val.lower() in yes_list:
         player.equipped_weapon = new_weapon_code
@@ -797,63 +797,115 @@ def event_skeleton_weapon():
     else:
         print("You left the room and continued your journey.")
 
-
+merchant_found = False
 def event_random_merchant():
     global merchant_found
-    merchant_found = False
-    if 100 <= player.gold < 140 and not merchant_found:
-        merchant_found = True
-        print("\nAs you approached the next floor you heard a voice in front of")
-        print("you coming from a weird defenseless spirit:")
-        print("\"Hey there stranger! I love gold and you look like you have a bunch of it there...")
-        print("do you mind if we did a quick trade?\"")
-        c = input("\nWill you accept the spirit's offer?\n[y/n]-->")
-        if c.lower() in yes_list:
-            print("\"Nice...Good...Take a look at this and buy it!... I mean..., analyse it, and tell me what you think...\"")
-            print("\nYour inventory:")
-            player.see_inventory()
-            print("\nHis item:".format(weapon_sword_strongly_enchanted_iron))
-            print("\n\"Do you want to buy it stranger? I can sell the weapon to you for 100 coins...\"")
-            d = input("-->")
-            if d.lower() in yes_list:
-                equip_weapon(weapon_sword_strongly_enchanted_iron)
-                player.gold -= 100
-                print("After you gave him the money, the spirit quickly disappeared.")
-            else:
-                print("AAAAHHH...( he screamed ) that... that's a shame.")
-                print("He quickly vanished into the walls.")
-        else:
-            print("AAAAHHH...( he screamed ) that... that's a shame.")
-            print("You didn't even saw the weapon... oh well...")
-            print("He quickly vanished into the walls.")
-    if player.gold >= 140 and not merchant_found:
-        merchant_found = True
-        print("\nAs you approached the next floor you heard a voice in front of")
-        print("you coming from a weird defenseless spirit:")
-        print("\"Hey there stranger! I love gold and you look like you have a bunch of it there...")
-        print("do you mind if we did a quick trade?\"")
-        c = input("\nWill you accept the spirit's offer?\n[y/n]-->")
-        if c.lower() in yes_list:
-            print("\"Nice...Good...Take a look at this and buy it!... I mean..., analyse it, and tell me what you think...\"")
-            print("\nYour inventory:")
-            player.see_inventory()
-            print("\nHis item:".format(weapon_sword_strongly_enchanted_iron))
-            print("\n\"Do you want to buy it stranger? I can sell the weapon to you for 140 coins...\"")
-            d = input("-->")
-            if d.lower() in yes_list:
-                equip_weapon(weapon_sword_strongly_enchanted_iron)
-                player.gold -= 140
-                print("After you gave him the money, the spirit quickly disappeared.")
-            else:
-                print("AAAAHHH...( he screamed ) that... that's a shame.")
-                print("He quickly vanished into the walls.")
-        else:
-            print("AAAAHHH...( he screamed ) that... that's a shame.")
-            print("You didn't even saw the weapon... oh well...")
-            print("He quickly vanished into the walls.")
     if merchant_found:
-        print("As you were advancing in the dungeon you saw a familiar spirit.")
+        print("\nAs you were advancing in the dungeon you saw a familiar spirit.")
         print("He quickly ignored you when he noticed you and disappeared into the walls.")
+
+    if player.location <= 30:
+        if 100 <= player.gold < 140 and not merchant_found:
+            merchant_found = True
+            print("\nAs you approached the next floor you heard a voice in front of")
+            print("you coming from a weird defenseless spirit:")
+            print("\"Hey there stranger! I love gold and you look like you have a bunch of it there...")
+            print("do you mind if we did a quick trade?\"")
+            c = input("\nWill you accept the spirit's offer?\n[y/n]-->")
+            if c.lower() in yes_list:
+                print("\"Nice...Good...Take a look at this and buy it!... I mean..., analyse it, and tell me what you think...\"")
+                print("\nYour inventory:")
+                player.see_inventory()
+                print("\nHis item: {}".format(weapon_sword_strongly_enchanted_iron))
+                print("\n\"Do you want to buy it stranger? I can sell the weapon to you for 100 coins...\"")
+                d = input("[y/n]-->")
+                if d.lower() in yes_list:
+                    equip_weapon(weapon_sword_strongly_enchanted_iron)
+                    player.gold -= 100
+                    print("\nAfter you gave him the money, the spirit quickly disappeared.")
+                else:
+                    print("\nAAAAHHH...( he screamed ) that... that's a shame.")
+                    print("He quickly vanished into the walls.")
+            else:
+                print("\nAAAAHHH...( he screamed ) that... that's a shame.")
+                print("You didn't even saw the weapon... oh well...")
+                print("He quickly vanished into the walls.")
+        if player.gold >= 140 and not merchant_found:
+            merchant_found = True
+            print("\nAs you approached the next floor you heard a voice in front of")
+            print("you coming from a weird defenseless spirit:")
+            print("\"Hey there stranger! I love gold and you look like you have a bunch of it there...")
+            print("do you mind if we did a quick trade?\"")
+            c = input("\nWill you accept the spirit's offer?\n[y/n]-->")
+            if c.lower() in yes_list:
+                print("\"Nice...Good...Take a look at this and buy it!... I mean..., analyse it, and tell me what you think...\"")
+                print("\nYour inventory:")
+                player.see_inventory()
+                print("\nHis item: {}".format(weapon_sword_strongly_enchanted_iron))
+                print("\n\"Do you want to buy it stranger? I can sell the weapon to you for 140 coins...\"")
+                d = input("{y/n]-->")
+                if d.lower() in yes_list:
+                    equip_weapon(weapon_sword_strongly_enchanted_iron)
+                    player.gold -= 140
+                    print("\nAfter you gave him the money, the spirit quickly disappeared.")
+                else:
+                    print("\nAAAAHHH...( he screamed ) that... that's a shame.")
+                    print("He quickly vanished into the walls.")
+            else:
+                print("\nAAAAHHH...( he screamed ) that... that's a shame.")
+                print("You didn't even saw the weapon... oh well...")
+                print("He quickly vanished into the walls.")
+    else:
+        if 250 <= player.gold < 350 and not merchant_found:
+            merchant_found = True
+            print("\nAs you approached the next floor you heard a voice in front of")
+            print("you coming from a weird defenseless spirit:")
+            print("\"Hey there stranger! I love gold and you look like you have a bunch of it there...")
+            print("do you mind if we did a quick trade?\"")
+            c = input("\nWill you accept the spirit's offer?\n[y/n]-->")
+            if c.lower() in yes_list:
+                print("\"Nice...Good...Take a look at this and buy it!... I mean..., analyse it, and tell me what you think...\"")
+                print("\nYour inventory:")
+                player.see_inventory()
+                print("\nHis item:".format(weapon_special_indented_ruby_axe))
+                print("\n\"Do you want to buy it stranger? I can sell the weapon to you for 100 coins...\"")
+                d = input("-->")
+                if d.lower() in yes_list:
+                    equip_weapon(weapon_special_indented_ruby_axe)
+                    player.gold -= 100
+                    print("After you gave him the money, the spirit quickly disappeared.")
+                else:
+                    print("AAAAHHH...( he screamed ) that... that's a shame.")
+                    print("He quickly vanished into the walls.")
+            else:
+                print("AAAAHHH...( he screamed ) that... that's a shame.")
+                print("You didn't even saw the weapon... oh well...")
+                print("He quickly vanished into the walls.")
+        if player.gold >= 350 and not merchant_found:
+            merchant_found = True
+            print("\nAs you approached the next floor you heard a voice in front of")
+            print("you coming from a weird defenseless spirit:")
+            print("\"Hey there stranger! I love gold and you look like you have a bunch of it there...")
+            print("do you mind if we did a quick trade?\"")
+            c = input("\nWill you accept the spirit's offer?\n[y/n]-->")
+            if c.lower() in yes_list:
+                print("\"Nice...Good...Take a look at this and buy it!... I mean..., analyse it, and tell me what you think...\"")
+                print("\nYour inventory:")
+                player.see_inventory()
+                print("\nHis item:".format(weapon_special_indented_ruby_axe))
+                print("\n\"Do you want to buy it stranger? I can sell the weapon to you for 140 coins...\"")
+                d = input("-->")
+                if d.lower() in yes_list:
+                    equip_weapon(weapon_special_indented_ruby_axe)
+                    player.gold -= 140
+                    print("After you gave him the money, the spirit quickly disappeared.")
+                else:
+                    print("AAAAHHH...( he screamed ) that... that's a shame.")
+                    print("He quickly vanished into the walls.")
+            else:
+                print("AAAAHHH...( he screamed ) that... that's a shame.")
+                print("You didn't even saw the weapon... oh well...")
+                print("He quickly vanished into the walls.")
 
 
 def event_wall_arrow():

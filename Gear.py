@@ -120,18 +120,18 @@ weapon_greatsword_dwarven = {
     rarity: 2
 }
 
-weapon_sword_enchanted_iron = {
-    "Name:": "Enchanted Iron Sword",
-    add_attack: 2.25,
-    add_defense: 0,
-    rarity: 3
-}
-
 weapon_axe_iron = {
     "Name:": "Iron Axe",
     add_attack: 2,
     add_defense: 0,
     rarity: 2
+}
+
+weapon_sword_enchanted_iron = {
+    "Name:": "Enchanted Iron Sword",
+    add_attack: 2.25,
+    add_defense: 0,
+    rarity: 3
 }
 
 WEAPONS_0_15 = [weapon_sword_wooden, weapon_sword_iron, weapon_greatsword_wooden, weapon_sword_elven, weapon_sword_rusty_iron,
@@ -265,7 +265,10 @@ weapon_special_indented_ruby_axe = {
 
 ############################################################## Armor:
 
+
+
 ##### Head:
+
 armor_head_rusty_cap = {
     "Name:": "Rusty Cap",
     "Type:": "Head",
@@ -287,6 +290,13 @@ armor_head_bronze_helmet = {
     rarity: 1
 }
 
+armor_head_tin_barbute = {
+    "Name:": "Iron Barbute",
+    "Type:": "Head",
+    add_defense: 0.75,
+    rarity: 1
+}
+
 armor_head_iron_barbute = {
     "Name:": "Iron Barbute",
     "Type:": "Head",
@@ -297,11 +307,49 @@ armor_head_iron_barbute = {
 armor_head_elven_helmet = {
     "Name:": "Lost Elven Helmet",
     "Type:": "Head",
-    add_defense: 0.75,
+    add_defense: 0.85,
     rarity: 2
 }
 
+#
+
+armor_head_obsidian_helmet = {
+    "Name:": "Obsidian Helmet",
+    "Type:": "Head",
+    add_defense: 0.85,
+    rarity: 2
+}
+
+armor_head_enchanted_iron_helmet = {
+    "Name:": "Enchanted Iron Helmet",
+    "Type:": "Head",
+    add_defense: 0.85,
+    rarity: 2
+}
+
+armor_head_enchanted_bronze_helmet = {
+    "Name:": "Enchanted Bronze Helmet",
+    "Type:": "Head",
+    add_defense: 0.85,
+    rarity: 2
+}
+
+armor_head_steel_visor = {
+    "Name:": "Steel Visor",
+    "Type:": "Head",
+    add_defense: 0.85,
+    rarity: 2
+}
+
+armor_head_ironoak_helmet = {
+    "Name:": "Ironoak Helmet",
+    "Type:": "Head",
+    add_defense: 1,
+    rarity: 3
+}
+
 ##### Chest:
+
 armor_chest_rusty_mail = {
     "Name:": "Rusty Mail",
     "Type:": "Chest",
@@ -323,6 +371,13 @@ armor_chest_bronze_cuirass = {
     rarity: 1
 }
 
+armor_chest_tin_cuirass = {
+    "Name:": "Tin Cuirass",
+    "Type:": "Chest",
+    add_defense: 0.75,
+    rarity: 1
+}
+
 armor_chest_iron_cuirass = {
     "Name:": "Iron Cuirass",
     "Type:": "Chest",
@@ -337,7 +392,52 @@ armor_chest_elven_breastplate = {
     rarity: 2
 }
 
+#
+
+armor_chest_obsidian_breastplate = {
+    "Name:": "Obsidian Breastplate",
+    "Type:": "Chest",
+    add_defense: 1.15,
+    rarity: 2
+}
+
+armor_chest_ironoak_breastplate = {
+    "Name:": "Heavy Ironoak Breastplate",
+    "Type:": "Chest",
+    add_defense: 1.15,
+    rarity: 3
+}
+
+armor_chest_enchanted_iron_breastplate = {
+    "Name:": "Enchanted Iron Breastplate",
+    "Type:": "Chest",
+    add_defense: 1,
+    rarity: 2
+}
+
+armor_chest_enchanted_bronze_chestplate = {
+    "Name:": "Enchanted Bronze Chestplate",
+    "Type:": "Chest",
+    add_defense: 1,
+    rarity: 2
+}
+
+armor_chest_steel_mail = {
+    "Name:": "Steel Mail",
+    "Type:": "Chest",
+    add_defense: 1,
+    rarity: 2
+}
+
+armor_chest_special_thur = {
+    "Name:": "Breatplate of \"Thur\"",
+    "Type:": "Chest",
+    add_defense: 1.25,
+    rarity: 3
+}
+
 ##### Legs:
+
 armor_legs_adventurers = {
     "Name:": "Lost Adventurer's Leggings",
     "Type:": "Legs",
@@ -359,6 +459,13 @@ armor_legs_iron_greaves = {
     rarity: 1
 }
 
+armor_legs_tin_boots = {
+    "Name:": "Tin Boots",
+    "Type:": "Legs",
+    add_defense: 0.25,
+    rarity: 1
+}
+
 armor_legs_bronze_greaves = {
     "Name:": "Bronze Greaves",
     "Type:": "Legs",
@@ -373,6 +480,42 @@ armor_legs_elven = {
     rarity: 2
 }
 
+#
+
+armor_legs_obsidian = {
+    "Name:": "Obsidian Greaves",
+    "Type:": "Legs",
+    add_defense: 0.5,
+    rarity: 2
+}
+
+armor_legs_enchanted_iron_boots = {
+    "Name:": "Enchanted Iron Boots",
+    "Type:": "Legs",
+    add_defense: 0.5,
+    rarity: 2
+}
+
+armor_legs_enchanted_bronze_greaves = {
+    "Name:": "Enchanted Bronze Greaves",
+    "Type:": "Legs",
+    add_defense: 0.5,
+    rarity: 2
+}
+
+armor_legs_steel_greaves = {
+    "Name:": "Steel Greaves",
+    "Type:": "Legs",
+    add_defense: 0.5,
+    rarity: 2
+}
+
+armor_legs_ironoak_greaves = {
+    "Name:": "Ironoak Greaves",
+    "Type:": "Legs",
+    add_defense: 0.75,
+    rarity: 3
+}
 
 ### Event Armor:
 
@@ -384,10 +527,17 @@ armor_chest_dead_man_breastplate = {
 }
 
 
-ARMOR = [armor_head_adventurer_helmet, armor_chest_adventurer_mail, armor_legs_adventurers, armor_head_iron_barbute, armor_chest_iron_cuirass,
-         armor_legs_iron_greaves, armor_head_elven_helmet, armor_chest_elven_breastplate, armor_legs_elven, armor_head_bronze_helmet,
-         armor_chest_bronze_cuirass, armor_legs_bronze_greaves
-         ]
+ARMOR_0_15 = [armor_head_adventurer_helmet, armor_chest_adventurer_mail, armor_legs_adventurers, armor_head_iron_barbute, armor_chest_iron_cuirass,
+    armor_legs_iron_greaves, armor_head_elven_helmet, armor_chest_elven_breastplate, armor_legs_elven, armor_head_bronze_helmet,
+    armor_chest_bronze_cuirass, armor_legs_bronze_greaves, armor_chest_tin_cuirass, armor_head_tin_barbute, armor_legs_tin_boots
+    ]
+
+ARMOR_15_30 = [armor_head_elven_helmet, armor_head_obsidian_helmet, armor_chest_elven_breastplate, armor_chest_obsidian_breastplate,
+    armor_legs_elven, armor_legs_obsidian, armor_chest_enchanted_iron_breastplate, armor_head_enchanted_iron_helmet,
+    armor_legs_enchanted_iron_boots, armor_head_enchanted_bronze_helmet, armor_chest_enchanted_bronze_chestplate, armor_legs_enchanted_bronze_greaves,
+    armor_legs_steel_greaves, armor_chest_steel_mail, armor_head_steel_visor, armor_legs_steel_greaves, armor_chest_special_thur,
+    armor_chest_ironoak_breastplate, armor_head_ironoak_helmet, armor_legs_ironoak_greaves
+    ]
 
 ############################################################## Potions:
 

@@ -10,3 +10,5 @@ Future Plans ( by order of relevance/importance ):
 - Monster drops ( items, not money )
 - Monsters that carry weapons/armor and are stronger ( linked with the above topic )
 - More items
+- Add music
+- Add graphics

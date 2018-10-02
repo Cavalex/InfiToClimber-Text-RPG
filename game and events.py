@@ -8,6 +8,7 @@ from Mobs import *
 score_lost_to_death = 3
 
 yes_list = ["yes", "yeah", "sure", "why not", "y", ""]
+yes_list_without_enter = ["yes", "yeah", "sure", "why not", "y"]
 
 
 def global_luck():
@@ -323,20 +324,21 @@ def monster_encounter():
                     damage_received = mob.ATTACK - player_defense_points()
                     if damage_received < 0:
                         damage_received = 0
-                    player.HP -= damage_received
+                    player.HP -= round(damage_received, 3)
                     if damage_received == 0 and not player_dodged:
                         print("You were able to block the monster's attack.")
                         print("You still have {} HP.".format(player.HP))
                     if damage_received > 0 and not player_dodged:
                         print("The {} inflicted you {} damage.".format(mob.name, damage_received))
                     print("You have {} HP.".format(player.HP))
+        # attack loop
         while True:
             global charged_strike
             charged_strike = False
             time.sleep(2)
             print("\nDo you want to use a charged strike for 1 MP that will add more 1 damage to your next attack?")
-            ss = input("[y/n]-->")
-            if ss.lower() in yes_list and player.MP > 0:
+            ss = input("[y/n or enter]-->")
+            if ss.lower() in yes_list_without_enter and player.MP > 0:
                 charged_strike = True
                 player.MP -= 1
             else:
@@ -383,7 +385,10 @@ def get_armor():
     if armor_prob == 1:
         print("\nYour inventory:")
         player.see_inventory()
-        new_armor = random.choice(ARMOR)
+        if player.location <= 15:
+            new_armor = random.choice(ARMOR_0_15)
+        if 15 < player.location:
+            new_armor = random.choice(ARMOR_15_30)
         print("\nWhile climbing to the next floor you found a piece of armor on the ground.")
         print("The item is: {} and can be equipped in the {} Armor Slot.".format(clean_armor(new_armor), new_armor["Type:"]))
         equip_armor(new_armor)
@@ -442,7 +447,7 @@ def quitting_event(a = None):
         player.score -= 2
         print()
         print("You decided to run from the monster and as you did that")
-        print("He attacked you from the back making you unconscious")
+        print("He attacked you from the back, hitting your head and making you unconscious")
         print("You lost 2 additional score points from dying of greed")
         print("Your score is {}".format(player.score))
         print("You killed {} monster(s).".format(player.kill_count))
@@ -562,7 +567,7 @@ def trap_chest_encounter_event():
                     damage_received = mob.ATTACK - player_defense_points()
                     if damage_received < 0:
                         damage_received = 0
-                    player.HP -= damage_received
+                    player.HP -= round(damage_received, 3)
                     if damage_received == 0 and not player_dodged:
                         print("You were able to block the monster's attack.")
                         print("You still have {} HP.".format(player.HP))
@@ -574,8 +579,8 @@ def trap_chest_encounter_event():
             charged_strike = False
             time.sleep(2)
             print("\nDo you want to use a charged strike for 1 MP that will add more 1 damage to your next attack?")
-            ss = input("[y/n]-->")
-            if ss.lower() in yes_list and player.MP > 0:
+            ss = input("[y/n or enter]-->")
+            if ss.lower() in yes_list_without_enter and player.MP > 0:
                 charged_strike = True
                 player.MP -= 1
             else:
@@ -797,7 +802,10 @@ def event_skeleton_weapon():
     else:
         print("You left the room and continued your journey.")
 
+
 merchant_found = False
+
+
 def event_random_merchant():
     global merchant_found
     if merchant_found:

@@ -307,7 +307,7 @@ armor_head_iron_barbute = {
 armor_head_elven_helmet = {
     "Name:": "Lost Elven Helmet",
     "Type:": "Head",
-    add_defense: 0.85,
+    add_defense: round(0.85, 3 ), 
     rarity: 2
 }
 
@@ -316,28 +316,28 @@ armor_head_elven_helmet = {
 armor_head_obsidian_helmet = {
     "Name:": "Obsidian Helmet",
     "Type:": "Head",
-    add_defense: 0.85,
+    add_defense: round(0.85, 3), 
     rarity: 2
 }
 
 armor_head_enchanted_iron_helmet = {
     "Name:": "Enchanted Iron Helmet",
     "Type:": "Head",
-    add_defense: 0.85,
+    add_defense: round(0.85, 3), 
     rarity: 2
 }
 
 armor_head_enchanted_bronze_helmet = {
     "Name:": "Enchanted Bronze Helmet",
     "Type:": "Head",
-    add_defense: 0.85,
+    add_defense: round(0.85, 3), 
     rarity: 2
 }
 
 armor_head_steel_visor = {
     "Name:": "Steel Visor",
     "Type:": "Head",
-    add_defense: 0.85,
+    add_defense: round(0.85, 3), 
     rarity: 2
 }
 

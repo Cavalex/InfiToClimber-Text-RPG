@@ -94,7 +94,7 @@ class Player:
 
 
 def armor_defense_points():
-    return round(sum(value["Defense"] for key, value in player.equipped_armor.items()))
+    return round(sum(value["Defense"] for key, value in player.equipped_armor.items()), 3)
 
 
 def player_defense_points():

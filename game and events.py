@@ -94,11 +94,11 @@ class Player:
 
 
 def armor_defense_points():
-    return sum(value["Defense"] for key, value in player.equipped_armor.items())
+    return round(sum(value["Defense"] for key, value in player.equipped_armor.items()))
 
 
 def player_defense_points():
-    return armor_defense_points() + player.base_defense + player.equipped_weapon[add_defense]
+    return round(armor_defense_points() + player.base_defense + player.equipped_weapon[add_defense], 3)
 
 
 def add_gold(amount):
@@ -220,7 +220,7 @@ def monster_encounter():
         print("As an adventurer, you decide to go check it!...")
     if player.location <= 15:
         mob = random.choice(ENEMIES_0_15)
-    if 15 < player.location <= 3:
+    if 15 < player.location <= 30:
         mob = random.choice(ENEMIES_15_30)
     if 30 < player.location:
         mob = random.choice(ENEMIES_30_45)

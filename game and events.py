@@ -939,13 +939,22 @@ def event_above_arrow():
     player.HP -= 2
 
 
+found_armor = False
+dead_armor_tick = 0
+
+
 def event_dead_armor():
 
     global found_armor
     global dead_armor_tick
 
-    found_armor = False
-    dead_armor_tick = 0
+    #found_armor = False
+    #dead_armor_tick = 0
+
+    if found_armor:
+        print("\nAs you were climbing the stairs to the next level you saw the same human")
+        print("body in the ground almost like if he was teleported to this floor.")
+        print("He has nothing to check on him more, so you continue your journey.")
 
     if dead_armor_tick == 0:
         print("\nAs you were climbing the stairs to the next level you saw a human")
@@ -991,11 +1000,6 @@ def event_dead_armor():
             print("You left him alone and resumed your journey.")
 
     dead_armor_tick += 1
-
-    if found_armor:
-        print("\nAs you were climbing the stairs to the next level you saw the same human")
-        print("body in the ground almost like if he was teleported to this floor.")
-        print("He has nothing to check on him more, so you continue your journey.")
 
 
 EVENTS = [event_shop, event_get_hp, event_fountain, event_chest, event_skeleton_weapon,

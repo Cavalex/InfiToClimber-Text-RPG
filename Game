@@ -212,73 +212,49 @@ def main():
     mm_map()
 
 
+fight_beginning = 0
+
+
 def monster_encounter():
     global player_input
     global mob
-    if player.location == 1:
-        print("Right at the entrance of the tower you spot something!")
-        print("As an adventurer, you decide to go check it!...")
-    if player.location <= 15:
-        mob = random.choice(ENEMIES_0_15)
-    if 15 < player.location <= 30:
-        mob = random.choice(ENEMIES_15_30)
-    if 30 < player.location:
-        mob = random.choice(ENEMIES_30_45)
-    mob.HP = mob.MAXHEALTH
-    print("You found a monster! It's {}!".format(mob.type))
+    global fight_beginning
+    if fight_beginning == 0:
+        if player.location == 1:
+            print("Right at the entrance of the tower you spot something!")
+            print("As an adventurer, you decide to go check it!...")
+        if player.location <= 15:
+            mob = random.choice(ENEMIES_0_15)
+        if 15 < player.location <= 30:
+            mob = random.choice(ENEMIES_15_30)
+        if 30 < player.location:
+            mob = random.choice(ENEMIES_30_45)
+        mob.HP = mob.MAXHEALTH
+        print("You found a monster! It's {}!".format(mob.type))
+        fight_beginning += 1
+
     print("What do you want to do? ")
     commands()
     player_input = input("--> ")
 
-    def wrong_command():
-        global player_input
-        while player_input not in player.COMMANDS:
-            print("Invalid Input!")
-            commands()
-            player_input = input("--> ")
-            while player_input == "s":
-                print("\nThese are your stats:")
-                player.status()
-                print("\nWhat do you want to do now?")
-                commands()
-                player_input = input("--> ")
-            while player_input == "i":
-                print("\nYour inventory:")
-                player.see_inventory()
-                time.sleep(0.1)
-                print("\nWhat do you want to do now?")
-                commands()
-                player_input = input("--> ")
-            if player_input == "r":
-                print()
-                quitting()
-                exit()
-    while player_input != "f":
-        while player_input == "s":
-            print("\nThese are your stats:")
-            player.status()
-            print("\nWhat do you want to do now?")
-            commands()
-            player_input = input("--> ")
-        wrong_command()
-        while player_input == "i":
-            print("\nYour inventory:")
-            player.see_inventory()
-            print("\nWhat do you want to do now?")
-            commands()
-            player_input = input("--> ")
-        wrong_command()
-        while player_input == "p":
-            drink_potion()
-            print("\nWhat do you want to do now?")
-            commands()
-            player_input = input("--> ")
-        wrong_command()
-        if player_input == "r":
-            print()
-            quitting()
-            exit()
-    if player_input == "f":
+    if player_input == "s":
+        print("\nThese are your stats:")
+        player.status()
+        print()
+        monster_encounter()
+    elif player_input == "i":
+        print("\nYour inventory:")
+        player.see_inventory()
+        print()
+        monster_encounter()
+    elif player_input == "p":
+        drink_potion()
+        monster_encounter()
+    elif player_input == "r":
+        print()
+        quitting()
+        exit()
+    elif player_input == "f":
         print("\nYou decided to attack the monster:")
         print("Enemy's Type: {}".format(mob.name))
         print("Enemy's HP: {}/{}".format(mob.HP, mob.MAXHEALTH))
@@ -288,7 +264,6 @@ def monster_encounter():
 
         def attack():
             global charged_strike
-            #global damage_received
             mob_dodged = False
             global_luck()
             if global_luck() == 1:
@@ -366,11 +341,9 @@ def monster_encounter():
                     exit()
                 else:
                     continue
-    if player_input == "r":
-        print()
-        quitting()
-        exit()
-
+    else:
+        print("Wrong Command! Try again.")
+        monster_encounter()
 
 def get_events():
 
@@ -411,7 +384,7 @@ def get_weapon():
 def drink_potion():
     print("\nThese are your potions:")
     print(player.potions)
-    potion_input = input("To drink a potion write its name here: -->")
+    potion_input = input("To drink a potion write its name here, to quit press Enter: -->")
     if potion_input.lower() == "hp potion" or potion_input.lower() == "hp":
         if potion_hp["Name:"] in player.potions["Potions: "]:
             print("It will add {} HP and is going to be discarded, are you sure?".format(potion_hp[add_HP]))
@@ -419,7 +392,7 @@ def drink_potion():
             if sure.lower() in yes_list:
                 player.potions["Potions: "].remove(potion_hp["Name:"])
                 player.HP += potion_hp[add_HP]
-    if potion_input.lower() == "mp potion" or potion_input.lower() == "mp":
+    elif potion_input.lower() == "mp potion" or potion_input.lower() == "mp":
         if potion_mp["Name:"] in player.potions["Potions: "]:
             print("It will add {} MP and is going to be discarded, are you sure?".format(potion_mp[add_MP]))
             sure = input("[y/n]-->")
@@ -432,7 +405,7 @@ def drink_potion():
 
 ################################################################ Events.
 
-# The events don't work on another file so i decided to put them on here.
+# The events don't work on a separate file so i decided to put them on here.
 
 #########
 
@@ -448,7 +421,7 @@ def quitting_event(a = None):
         print()
         print("You decided to run from the monster and as you did that")
         print("He attacked you from the back, hitting your head and making you unconscious")
-        print("You lost 2 additional score points from dying of greed")
+        print("You lost 2 additional score points from being greedy.")
         print("Your score is {}".format(player.score))
         print("You killed {} monster(s).".format(player.kill_count))
         print_quitting()
@@ -458,7 +431,8 @@ def quitting_event(a = None):
         player.score -= score_lost_to_death
         player.score -= 2
         print()
-        print("Game Over! You died of greed! As such you will loose 2 additional score points.")
+        print("Game Over! You died of greed! As such you will loose 2 additional score points")
+        print("besides the ones you would lose to death.")
         print("Your score is {}".format(player.score))
         print("You killed {} monster(s).".format(player.kill_count))
         print_quitting()
@@ -468,61 +442,36 @@ def quitting_event(a = None):
 def trap_chest_encounter_event():
     global player_input
     global mob
-    mob = TrapChest()
-    mob.HP = mob.MAXHEALTH
-    print("The chest was a trap! It's {}!".format(mob.type))
+    global fight_beginning
+
+    if fight_beginning == 0:
+        mob = TrapChest()
+        mob.HP = mob.MAXHEALTH
+        print("The chest was a trap! It's {}!".format(mob.type))
+        fight_beginning += 1
+
     print("What do you want to do? ")
     commands()
     player_input = input("--> ")
 
-    def wrong_command():
-        global player_input
-        while player_input not in player.COMMANDS:
-            print("Invalid Input!")
-            commands()
-            player_input = input("--> ")
-            while player_input == "s":
-                print("\nThese are your stats:")
-                player.status()
-                print("\nWhat do you want to do now?")
-                commands()
-                player_input = input("--> ")
-            while player_input == "i":
-                print("\nYour inventory:")
-                player.see_inventory()
-                time.sleep(0.1)
-                print("\nWhat do you want to do now?")
-                commands()
-                player_input = input("--> ")
-            if player_input == "r":
-                quitting_event("rr")
-                exit()
-    while player_input != "f":
-        while player_input == "s":
-            print("\nThese are your stats:")
-            player.status()
-            print("\nWhat do you want to do now?")
-            commands()
-            player_input = input("--> ")
-        wrong_command()
-        while player_input == "i":
-            print("\nYour inventory:")
-            player.see_inventory()
-            print("\nWhat do you want to do now?")
-            commands()
-            player_input = input("--> ")
-        wrong_command()
-        while player_input == "p":
-            drink_potion()
-            print("\nWhat do you want to do now?")
-            commands()
-            player_input = input("--> ")
-        wrong_command()
-        if player_input == "r":
-            quitting_event("rr")
-            player.score -= score_lost_to_death - 2
-            exit()
-    if player_input == "f":
+    if player_input == "s":
+        print("\nThese are your stats:")
+        player.status()
+        print()
+        trap_chest_encounter_event()
+    elif player_input == "i":
+        print("\nYour inventory:")
+        player.see_inventory()
+        print()
+        trap_chest_encounter_event()
+    elif player_input == "p":
+        drink_potion()
+        trap_chest_encounter_event()
+    elif player_input == "r":
+        print()
+        quitting_event("rr")
+        exit()
+    elif player_input == "f":
         print("\nYou decided to attack the Trap Chest:")
         print("Enemy's HP: {}/{}".format(mob.HP, mob.MAXHEALTH))
         print("Enemy's Attack: {}".format(mob.ATTACK))
@@ -531,7 +480,6 @@ def trap_chest_encounter_event():
 
         def attack():
             global charged_strike
-            #global damage_received
             mob_dodged = False
             global_luck()
             if global_luck() == 1:
@@ -597,10 +545,9 @@ def trap_chest_encounter_event():
                 print("\nYou can't run!")
                 print("Press anything to continue")
                 continue
-    if player_input == "r":
-        print()
-        quitting_event()
-        exit()
+    else:
+        print("Wrong Command! Try again.")
+        trap_chest_encounter_event()
 
 
 
@@ -1011,6 +958,7 @@ EVENTS = [event_shop, event_get_hp, event_fountain, event_chest, event_skeleton_
 
 # Game Loop
 def main_loop():
+    global fight_beginning
     while player.HP > 0:
         while player.location == 0:
             player.name = input("What's your name, adventurer? ")
@@ -1022,6 +970,8 @@ def main_loop():
             beg = input("--> ")
             player.location += 1
         print()
+
+        fight_beginning = 0
         monster_encounter()
 
         gold_variable = random.randint(5, 25)
@@ -1038,6 +988,8 @@ def main_loop():
             exit()
 
         print("\nYou decided to continue your journey inside the dungeon...")
+
+        fight_beginning = 0
         get_events()
         get_armor()
         get_weapon()

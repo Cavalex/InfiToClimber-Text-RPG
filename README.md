@@ -1,5 +1,5 @@
 # InfiToClimber-Text-RPG
-A text RPG I made with sloppy code and a bunch of bugs, help and tips are appreciated.
+A text RPG I made with sloppy code and a bunch of bugs when I was learning Python.
 Made in Python 3.7.0
 
 To play the game just execute "Game.py" in any Python IDE.
